@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header( 'meusJogos')}"></div>	
+	
+	<div class="corpo p-2 bg-light">
+	
+		<p th:text=${avaliacao.review}>Ver Avaliacao</p>
+	</div>
+	
+    <div th:replace="~{fragments :: footer}"></div>
+    
+</body>
+</html>

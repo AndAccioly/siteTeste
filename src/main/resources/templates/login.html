@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header( '')}"></div>	
+	
+	<div class="card p-2 bg-light">
+	
+		<div th:if="${erro != ''}">
+			<p th:text="${erro}"></p>
+		</div>
+	
+		<div class="card mx-auto p-3" style="width: 44rem;">
+	    		
+	    	<form class="mx-auto" th:action="@{/login}" th:object="${usuario}" method="post">
+		    	<h5 style="text-align: center;">Login</h5>
+		    	<div class="row mt-2">
+		    		<div class="col-3">
+			    		<label for="usernameLogin">Usuário</label>
+			    	</div>	
+			    	<div class="col-9">
+			    		<input id="usernameLogin" type="text" name="username" class="form-control">
+		    		</div>
+		    	</div>
+		    	<div class="row mt-2">
+		    		<div class="col-3">
+			    		<label for="passwordLogin">Senha</label>
+			    	</div>
+			    	<div class="col-9">
+			    		<input id="passwordLogin" type="password" name="password" class="form-control">
+		    		</div>
+		    	</div>
+		    	<button class="btn btn-success mt-3" type="submit">Login</button>
+		    	<a class="btn btn-success mt-3" onclick="location.href='/cadastro'">Cadastrar</a>
+	   		</form>
+	    </div>
+    </div>
+    <div th:replace="~{fragments :: footer}"></div>
+    
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header( 'forum')}"></div>	
+	
+	<div class="corpo p-2 bg-light">
+		<div class="container">
+			<div class="card mt-2">
+				<div class="row mt-2">
+				
+					<div class="col-2 border-end border-2">
+						<div class="container">
+							<div class="row">
+								<img th:src="@{/imagens/logo.png}" class="img-logo" style="width: 50%" title="logo" alt="logo-link"/>
+							</div>
+							<div class="row">
+								<span class="subtitulo-cartao" th:text="${resposta.topico.autor.username}"></span>
+							</div>
+							<div class="row">
+								<span class="subtitulo-cartao" th:text="${#calendars.format(resposta.topico.dataPublicacao, 'dd/MM/yy HH:mm')}"></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-10">
+						<div class="container">
+							<div class="row">
+								<div class="d-flex justify-content-between">
+									<h5 class="card-title" th:text="${resposta.topico.titulo}"></h5>
+									<a th:href="@{/denunciar(id=${resposta.topico.id}, entidade='topico') }" class="denunciar">Denunciar</a>
+								</div>
+							</div>
+							<div class="row">
+								<span><a class="referencia" th:href="@{/verJogo(id=${resposta.topico.jogo.id})}" th:text="${resposta.topico.jogo.nome}"></a></span>
+							</div>
+							<div class="row mt-3">
+								<span th:text="${resposta.topico.conteudo}"></span>
+							</div>
+						</div>
+						
+						<div th:replace="~{ forum/forumFragments :: verResposta(${resposta}) }"></div>	
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+    <div th:replace="~{fragments :: footer}"></div>
+    
+</body>
+</html>

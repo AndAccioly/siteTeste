@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="css/autocomplete.css">
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header( 'jogos' )}"></div>
+		
+	<div class="corpo p-2 bg-light">
+		
+		<div th:replace="~{jogos/jogosFragments :: plataformas}"></div>
+		<div th:replace="~{jogos/jogosFragments :: ranking}"></div>
+		<div th:replace="~{jogos/jogosFragments :: buscarJogo(${listaCategorias})}"></div>
+		
+		<div class="listaJogos p-4">
+			<div id="replace_div">
+				<div th:replace="~{jogos/jogosFragments :: listaJogos(${jogos})}"></div>
+			</div>
+		</div>
+
+		<div th:replace="~{misc/modal :: modalAdicionarJogo}"></div>
+		<script type="text/javascript" th:src="@{/js/jogos/modalListarJogos.js}"></script>
+	</div>	
+	
+	<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jogos/util.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jogos/selector.js}"></script>
+		
+	<div th:replace="~{fragments :: footer}"></div>
+	
+</body>
+</html>

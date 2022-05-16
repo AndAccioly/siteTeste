@@ -1,0 +1,182 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<head th:fragment="head">
+    <title>GamerPride, the gamer encyclopedia</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+
+	body{
+		background-color: #198754;
+	}
+
+	</style>
+    
+</head>
+
+
+<div th:fragment="menu(ativo)">
+	<div class="border-top">
+		<div class="topnav">
+			<a th:classappend="${ativo=='inicio'} ? active : inactive" href="/home">Início</a> 
+			
+			<div class="dropdown" style="position: inherit;">
+				<button th:classappend="${ativo=='jogos'} ? active : inactive" class="dropbtn">Jogos</button>
+				<div class="dropdown-content">
+					<a href="/listarJogos">Todos os jogos</a>
+				</div>
+			</div>
+			 
+			<div sec:authorize="isAuthenticated()">
+				<a th:classappend="${ativo=='meusJogos'} ? active : inactive" href="/meusJogos">Meus Jogos</a>
+				<a th:classappend="${ativo=='forum'} ? active : inactive" href="/forum">Fórum</a>
+			</div>
+			
+			
+			<div sec:authorize="hasRole('ROLE_ADMIN')"> 
+				<div class="dropdown" style="position: inherit;">
+					<button th:classappend="${ativo=='admin'} ? active : inactive" class="dropbtn">Admin</button>
+					<div class="dropdown-content">
+						<a href="/adminUsuario">Usuário</a>
+						<a href="/adminJogo">Jogo</a>
+						<a href="/adminForum">Fórum</a>
+						<a href="/adminDenuncias">Denúncias</a>
+					</div>
+				</div> 
+			</div>	
+			
+			<div sec:authorize="hasRole('ROLE_REDATOR') || hasRole('ROLE_ADMIN')"> 
+				<a th:classappend="${ativo=='redacao'} ? active : inactive" href="/escreverNoticia">Redação</a> 
+			</div>
+			
+			<a th:classappend="${ativo=='contato'} ? active : inactive" href="/contato">Contato</a> 
+			<a th:classappend="${ativo=='sobre'} ? active : inactive" href="/sobre">Sobre</a>
+			
+			
+			
+		</div>
+	</div>
+	
+</div>
+
+
+<div th:fragment="header(tipoMenu)">
+	<div th:replace="~{fragments :: logoLoginLogout}"></div>
+	<div th:replace="~{fragments :: menu(${tipoMenu})}"></div>
+</div>
+
+
+<div th:fragment="logoLoginLogout">	
+	<div class="logoHeader p-2 bg-success">
+	
+		<div class="d-flex justify-content-between">
+			 <div class="p-2">
+				<a href="/login">
+					<img th:src="@{/imagens/logo.png}" class="img-logo" style="width: 25%" title="logo" alt="logo-link"/>
+				</a>
+			</div>
+			<div class="p-2">
+				<a class="text-light" sec:authorize="!isAuthenticated()" href="/cadastro">Cadastro</a> 
+				<a class="text-light" sec:authorize="!isAuthenticated()" href="/login" >Login</a>	
+					
+				<a class="text-light" sec:authorize="isAuthenticated()" href="/profile">Perfil</a> 
+				<a onclick="document.querySelector('#form-login').submit()" class="text-light" sec:authorize="isAuthenticated()" href="#">Logout</a>
+				<form id="form-login" th:action="@{/logout}" method="post"> </form>
+					
+			</div>	
+		</div>
+		
+	</div>
+</div>
+
+<div th:fragment="footer">
+	<div class="footer p-4 bg-success">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-2">
+					<span class="titulo-footer" th:text="Site"></span>
+				</div>
+				<div class="col-2">
+					<span class="titulo-footer">Redes Sociais</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2">
+					<span><a class="referencia-footer" th:href="@{/topJogos}">Top jogos</a></span>
+				</div>
+				<div class="col-2">
+					<span><a class="referencia-footer" th:href="@{/topJogos}">Facebook</a></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2">
+					<span><a class="referencia-footer" th:text="Contato" th:href="@{/contato}"></a></span>
+				</div>
+				<div class="col-2">
+					<span><a class="referencia-footer" th:href="@{/topJogos}">Twitter</a></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2">
+					<span><a class="referencia-footer" th:href="@{/sobre}">Sobre</a></span>
+				</div>
+				<div class="col-2">
+					<span><a class="referencia-footer" th:href="@{/topJogos}">Instagram</a></span>
+				</div>
+			</div>
+		</div>
+		 
+	</div>
+</div>
+
+
+<div th:fragment="carrosselInicial">
+
+	<script th:inline="javascript">
+		$('.carousel').carousel({
+		  interval: 2000
+		})
+	</script>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img class="d-block w-30" th:src="@{/imagens/logo.png}" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-30" src="" alt="Second slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block w-30" th:src="@{/imagens/logo.png}" alt="Third slide">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators"
+						role="button" data-slide="prev"> <span
+						class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+						class="sr-only">Previous</span>
+					</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+						role="button" data-slide="next"> <span
+						class="carousel-control-next-icon" aria-hidden="true"></span> <span
+						class="sr-only">Next</span>
+					</a>
+				</div>
+			
+			</div>
+			<div class="col-2"></div>
+		</div>
+	</div>
+	
+
+</div>
+

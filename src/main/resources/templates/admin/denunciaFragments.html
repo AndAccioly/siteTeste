@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+<div th:fragment="verTopicosDenunciados(denunciasTopicos)">
+	<div class="card mt-2">
+		<span>Denuncia de tópicos</span>
+		<div class="container">
+			<div th:each="denuncia : ${denunciasTopicos}">
+				<div class="card mt-2">
+					<div class="container">
+						<div class="row mt-2">
+							<div class="col-auto">
+								<h5 class="card-title"><a th:href="@{/topico(id=${denuncia.topicoDenunciado.id})}" class="referencia-titulo-topico" th:text="${denuncia.topicoDenunciado.titulo}" style="text-decoration: none;"></a></h5>
+							</div>
+						</div>
+						
+						<div class="row mt-2">
+							<div class="col-auto">
+								<div class="d-flex justify-content-between">
+									<span th:text="${denuncia.autorDenuncia.username}"></span>
+									<span>&nbsp;denunciou&nbsp;</span>
+									<span th:text="${denuncia.topicoDenunciado.autor.username}"></span>
+								</div>
+							</div>
+							<div class="col-auto">
+								<span th:text="${#calendars.format(denuncia.dataDenuncia, 'dd/MM/yy HH:mm')}"></span>
+							</div>
+						</div>
+						<div class="row mt-2">
+							<span> <a class="referencia" th:href="@{excluirDenuncia(id=${denuncia.id})}">Excluir tópico</a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="verRespostasDenunciadas(denunciasRespostas)">
+	<div class="card mt-2">
+		<span>Denuncia de respostas</span>
+		<div class="container">
+			<div th:each="denuncia : ${denunciasRespostas}">
+				<div class="card mt-2">
+					<div class="container">
+						<div class="row mt-2">
+							<div class="col-auto">
+								<h5 class="card-title"><a th:href="@{/resposta(id=${denuncia.respostaDenunciada.id})}" class="referencia-titulo-topico" th:text="${denuncia.respostaDenunciada.topico.titulo}" style="text-decoration: none;"></a></h5>
+							</div>
+						</div>
+						
+						<div class="row mt-2">
+							<div class="col-auto">
+								<div class="d-flex justify-content-between">
+									<span th:text="${denuncia.autorDenuncia.username}"></span>
+									<span>&nbsp;denunciou&nbsp;</span>
+									<span th:text="${denuncia.respostaDenunciada.autor.username}"></span>
+								</div>
+							</div>
+							<div class="col-auto">
+								<span th:text="${#calendars.format(denuncia.dataDenuncia, 'dd/MM/yy HH:mm')}"></span>
+							</div>
+						</div>
+						<div class="row mt-2">
+							<span> <a class="referencia" th:href="@{excluirDenuncia(id=${denuncia.id})}">Excluir Resposta</a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header( 'cadastro')}"></div>	
+	
+	<div class="corpo p-2 bg-light">
+	
+		<div th:if="${mensagem != ''}">
+			<p th:text="${mensagem}"></p>
+		</div>
+	
+		<div class="card mx-auto p-3" style="width: 44rem;">
+	    	
+	    	<div th:replace="~{paginas/fragmentsContainer :: mensagem(${mensagem})}"></div>	
+	    	
+	    	<form class="mx-auto" th:action="@{/cadastro}" th:object="${usuarioFormCadastro}" method="post">
+	    		<h5 style="text-align: center;">Cadastro</h5>
+	    		<div class="row mt-2">
+	    			<div class="col-3">
+			    		<label for="email">Email</label>
+	    			</div>
+	    			<div class="col-9">
+	 		    		<input type="text" id="emailCadastro" class="form-control">
+	    			</div>
+		    	</div>
+		    	<div class="row mt-2">
+		    		<div class="col-3">
+			    		<label for="username">Usuário</label>
+		    		</div>
+		    		<div class="col-9">
+			    		<input type="text" id="usernameCadastro" class="form-control">
+		    		</div>
+		    	</div>
+		    	<div class="row mt-2">
+		    		<div class="col-3">
+			    		<label for="password">Senha</label>
+		    		</div>
+		    		<div class="col-9">
+			    		<input type="password" id="passwordCadastro" class="form-control">
+		    		</div>
+		    	</div>
+		    	<div class="row mt-2">
+		    		<div class="col-3">
+			    		<label for="passwordConfirmada">Confirmar Senha</label>
+		    		</div>
+		    		<div class="col-9">
+			    		<input type="password" id="passwordConfirmadaCadastro" class="form-control">
+		    		</div>
+		    	</div>
+		    	<button class="btn btn-success mt-3" type="submit">Cadastrar</button>
+		    	<a class="btn btn-success mt-3" onclick="location.href='/login'">Login</a>
+	   		</form>
+	    </div>
+	    
+	</div>
+	
+    <div th:replace="~{fragments :: footer}"></div>
+    
+</body>
+</html>

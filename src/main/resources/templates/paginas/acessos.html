@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<div th:replace="~{fragments :: head}"></div>
+
+
+<body>
+
+	<div th:replace="~{fragments :: header( 'cadastro')}"></div>
+	<div class="corpo p-2 bg-light">
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-2">
+					<span><b>Path</b></span>
+				</div>
+				<div class="col-2">
+					<span><b>Duração</b></span>
+				</div>
+				<div class="col-2">
+					<span><b>Data</b></span>
+				</div>
+			</div>
+			<div th:each="acesso : ${acessos}">
+				<div class="row">
+					<div class="col-2">
+						<span th:text="${acesso.path}"></span>
+					</div>
+					<div class="col-2">
+						<span th:text="${acesso.duracao}"></span>
+					</div>
+					<div class="col-3">
+						<span th:text="${acesso.data}"></span>
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+	</div>
+	
+	
+	
+
+
+    <div th:replace="~{fragments :: footer}"></div>
+    
+</body>
+</html>

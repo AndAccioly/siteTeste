@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="css/autocomplete.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header('meusJogos')}"></div>
+	
+	<div class="corpo p-2 bg-light">
+		<div class="alterarJogo mt-4">
+		
+			<div th:if="${erro != ''}">
+				<p th:text="${erro}"></p>
+			</div>
+			
+			<div th:if="${erro == ''}" id="alterarJogo">
+		    	<div class="card mx-auto w-50">
+			    	<h5>Alterar avaliação</h5>
+			    	<form class="p-3" th:action="@{/alterarAvaliacaoJogo(id=${avJogo.id})}" th:object="${avJogo}" method="post">
+				        <div class="row mt-2">
+				        	<div class="col-auto">
+					      		<label for="reviewAlterarJogo">Nota</label>
+						        <input id="notaAlterarJogo" type="text" th:field="*{nota}" />
+							</div>
+							<div class="col-auto">
+								<label for="horasJogadasAlterarJogo">Horas jogadas</label>
+						        <input id="horasJogadasAlterarJogo" type="text" th:field="*{horasJogadas}"/>
+					        </div>
+				        </div>
+			    		<div class="row mt-2">
+			    			<label for="reviewAlterarJogo">Review</label>
+					        <textarea id="reviewAlterarJogo" class="form-control mt-2" rows="3" name="reviewJogo" th:field="*{review}" ></textarea>
+					    </div>
+					    <div class="row mt-2">
+					        <div class="d-flex justify-content-between">
+					        	<input type="submit" class="btn-success" value="Alterar" /> 
+				        		<input type="reset" class="btn-success" value="Limpar" />
+				        	</div>
+					    </div>
+			   		</form>
+		   		</div>
+		    </div>
+		    
+		</div>
+    </div>
+	 <div th:replace="~{fragments :: footer}"></div>
+	
+</body>
+</html>

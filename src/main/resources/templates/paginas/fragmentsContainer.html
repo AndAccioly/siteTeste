@@ -1,0 +1,141 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:fragment="usuarioInfo(usuario)">
+	<div class="container">
+		<div class="row mt-1">
+			<img th:src="@{/imagens/logo.png}" class="img-logo" style="width: 50%" title="logo" alt="logo-link"/>
+			<span th:text="${usuario.username}"></span>
+			<span th:text="${usuario.totalHorasJogadas}"></span>
+			<div th:if="${souEu}">
+				<a href="#" class="btn btn-success btn-sm active" role="button" aria-pressed="true">Edit Profile</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div th:fragment="ultimasReviews(usuario)">
+	<div class="container">
+		<div class="row">
+			<span>Reviews</span>
+			<div class="card-group">
+				<div th:each="avJogo : ${usuario.avaliacoes}">
+					<div class="card m-2" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title"><a class="referencia-titulo-topico" th:href="@{/verAvaliacao(id=${avJogo.id})}" th:text="${avJogo.jogo.nome}"></a></h5>
+							<h6 class="card-subtitle mb-2 text-muted" th:text="'Nota ' + ${avJogo.nota}"></h6>
+							<p class="card-text" th:text="${avJogo.review}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="ultimasReviewsJogo(jogo)">
+	<div class="container">
+		<div class="row">
+			<span>Últimas reviews</span>
+			<div class="card-group">
+				<div th:each="avJogo : ${jogo.avaliacoes}">
+					<div class="card m-2" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title"><a th:href="@{/verAvaliacao(id=${avJogo.id})}" class="referencia-titulo-topico" th:text="${jogo.nome}"></a></h5>
+							<h6 class="card-subtitle mb-2 text-muted" th:text="'Nota ' + ${avJogo.nota}"></h6>
+							<p class="card-text" th:text="${#strings.abbreviate(avJogo.review,55)}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="ultimosTopicosJogo(jogo)">
+	<div class="container">
+		<div class="row">
+			<span>Últimos tópicos</span>
+			<div class="card-group">
+				<div th:each="topico : ${jogo.topicos}">
+					<div class="card m-2" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title"><a th:href="@{/topico(id=${topico.id})}" class="referencia-titulo-topico" th:text="${topico.titulo}"></a></h5>
+							<h6 class="card-subtitle mb-2 text-muted" th:text="${topico.autor.username}"></h6>
+							<p class="card-text" th:text="${#strings.abbreviate(topico.conteudo,55)}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="ultimasNoticiasJogo">
+	<div class="container">
+		<div class="row">
+			<span>Últimas notícias</span>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="jogoInfo(jogo)">
+	<div class="container">
+		<div class="row mt-1">
+			<img th:src="@{/imagens/logo.png}" class="img-logo" style="width: 50%" title="logo" alt="logo-link"/>
+			<div class="container">
+				<div class="row">
+					<div class="col-3">
+						<span class="ver-jogo-info">Título: </span>
+					</div>
+					<div class="col-9">
+						<span class="ver-jogo-info" th:text="${jogo.nome}"></span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<span class="ver-jogo-info">Nota: </span>
+				</div>
+				<div class="col-9">
+					<span class="ver-jogo-info" th:text="${jogo.nota}"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<span class="ver-jogo-info" >Lançamento: </span>
+				</div>
+				<div class="col-6">
+					<span class="ver-jogo-info" th:text="${#calendars.format(jogo.dtLancamento, 'dd/MM/yy')}"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-4">
+					<span class="ver-jogo-info" >Tempo: </span>
+				</div>
+				<div class="col-8">
+					<span class="ver-jogo-info" th:text="${jogo.horasZeramento + '&nbsp' + 'hrs'}"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-5">
+					<span class="ver-jogo-info" >Publisher: </span>
+				</div>
+				<div class="col-7">
+					<span class="ver-jogo-info" th:text="${jogo.publisher}"></span>
+				</div>
+			</div>
+			
+			<a href="#" class="btn btn-success btn-sm active mt-2" role="button" aria-pressed="true">Adicionar</a>
+			
+		</div>
+	</div>
+</div>
+
+
+<div th:fragment="mensagem(mensagem)">
+	<div th:if="${mensagem != ''}">
+		<span th:text="${mensagem}"></span>
+	</div>
+</div>

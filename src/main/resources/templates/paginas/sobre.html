@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+<div th:replace="~{fragments :: header('sobre')}"></div>
+	
+	<div class="corpo p-2 bg-light">
+		
+		<p id="frase">Site utilizado para testes dos cursos Alura de Selenium, Spring-boot, JPA, Servlets e Mocks.</p>
+	
+	</div>
+	<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

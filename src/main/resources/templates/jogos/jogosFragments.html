@@ -1,0 +1,260 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:fragment="meusJogos">
+	<div class="container mt-3">
+    	<div class="row p-2 border-bottom border-2">
+    		<div class="col-1">
+    			<span></span>
+    		</div>
+    		<div class="col-2">
+    			<div class="meusJogosTabelaTexto"><span>Nome</span></div>
+    		</div>
+    		<div class="col-4">
+    			<div class="meusJogosTabelaTexto"><span>Review</span></div>
+    		</div>
+    		<div class="col-1">
+				<div class="meusJogosTabelaTexto"><span>Nota</span></div>
+    		</div>
+    		<div class="col-1">
+    			<div class="meusJogosTabelaTexto"><span>Horas Jogadas</span></div>
+    		</div>
+    		<div class="col-1">
+    			<span></span>
+    		</div>
+    		<div class="col-1">
+    			<span></span>
+    		</div>
+    	</div>
+    	
+		<div class="row p-2 border-bottom border-2" th:each="avJogo : ${avJogos}">
+	   		<div class="col-1">
+	   			<a th:href="@{/verAvaliacao(id=${avJogo.id})}">
+					<img th:src="@{/imagens/logo.png}" alt="imagem jogo" style="width: 50%">
+				</a>
+	   		</div>
+	   		<div class="col-2">
+	   			<span th:text="${avJogo.jogo.nome}"></span>
+	   		</div>
+	   		<div class="col-4">
+	   			<span th:text="${#strings.abbreviate(avJogo.review,55)}"></span>
+	   		</div>
+	   		<div class="col-1">
+	   			<span th:text="${avJogo.nota}"></span>
+	   		</div>
+	   		<div class="col-1">
+	   			<span th:text="${avJogo.horasJogadas}"></span>
+	   		</div>
+	   		<div class="col-1">
+	   			<span class="referencia icone botao-editar" th:id="${'editar' + avJogo.id}" data-toggle="modal" id="botao-modal-teste" data-target="#modalEx">
+	    			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+						<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+						<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+					</svg>
+	   			</span>
+	   		</div>
+	   		<div class="col-1">
+	   			<span class="referencia icone botao-remover" th:id="${'remover' + avJogo.id}">
+		    		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+						<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+						<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+					</svg>	
+				</span>
+	   		</div>
+	   	</div>
+	    
+    	<div class="row">
+    		<div class="col-2">
+    			<span class="anterior-proximo" id="carregarPaginaAnterior"> 
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+						<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+					</svg>
+				</span> 
+				<span class="anterior-proximo" id="carregarPaginaProxima">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+						<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+					</svg>
+				</span>
+    		</div>
+    		<div id="valorPaginaAtual" style="display: none;" th:text=${paginaAtual}></div>
+			<div id="ehUltimaPagina" style="display: none;" th:text="${ehUltimaPagina}"></div>
+    	</div>    
+	</div>
+	
+	<script type="text/javascript" th:src="@{/js/jogos/paginacaoMeusJogos.js}"></script>
+</div>
+
+
+<div th:fragment="buscarJogo(listaCategorias)">
+	<div class="card mx-auto w-50">
+		<div class="buscarJogoBase p-4">
+	    	<form  th:object="${jogoBuscaTO}" method="get" autocomplete="off">
+	    		<div class="container">
+		    		<div class="row mt-2 mt-2">
+			    		<div class="col-auto">
+			    			<div class="autocomplete" style="width:300px;">
+								<input id="jogoAutoInput" type="text" name="jogo" placeholder="Jogo" th:field="*{nome}"/>
+							</div>
+			    		</div>
+				    	<div class="col-auto">
+					    	<select id="selecionar-categoria" class="form-select " th:field="*{categoria}">
+						    	<option id="selecionarCategoriaBuscar" selected="selected" th:value="selecioneCategoria">Selecione a categoria</option>
+						    	<option th:each="categoria : ${listaCategorias}" th:value="${categoria.nome}" th:text="${categoria.nome}"></option>
+					    	</select>
+					    </div>
+				    </div>
+		    	</div>
+	   		</form>
+	    </div>
+    </div>
+    
+    <div th:replace="~{misc/autocomplete :: autoCompleteScript(${jogosNomes})}"></div>
+</div>
+
+
+<div th:fragment="listaJogos(jogos)">
+	<div class="container">
+		<div th:if="${jogos.empty}">
+			<span th:text="${erro}" ></span>
+		</div>
+		
+		<div class="container-fluid mt-3">
+			<div class="row p-2 border-bottom border-2">
+				<div class="col-1">
+		    	</div>
+		    	<div class="col-8">
+	    			<div class="meusJogosTabelaTexto"><span>Título</span></div>
+	    		</div>
+	    		<div class="col-1">
+	    			<div class="meusJogosTabelaTexto"><span>Popularidade</span></div>
+	    		</div>
+	    		<div class="col-1">
+					<div class="meusJogosTabelaTexto"><span>Horas</span></div>
+	    		</div>
+	    		<div class="col-1">
+	    			<div class="meusJogosTabelaTexto"><span>Adicionar</span></div>
+	    		</div>
+			</div>
+			
+			<div class="row p-2 border-bottom border-2" th:each="jogo, count : ${jogos}">
+				<div class="col-1">
+		    		<span th:text="${count.count + paginaRelativa}"></span>
+		    	</div>
+		    	<div class="col-8">
+		    		<div class="container">
+		    			<div class="row">
+		    				<div class="col-2">
+		    					<a th:href="@{/verJogo(id=${jogo.id})}">
+									<img th:src="@{/imagens/logo.png}" alt="imagem jogo" style="width: 50%">
+								</a>
+		    				</div>
+		    				<div class="col-10">
+				    			<div class="row">
+				    				<span><a th:href="@{/verJogo(id=${jogo.id})}" class="referencia-titulo-topico" th:text="${jogo.nome}"></a></span>
+				    			</div>
+				    			<div class="row">
+									<span class="data-nota-jogo" th:text="${#calendars.format(jogo.dtLancamento, 'MMM/YYYY')}"></span>
+								</div>
+								<div class="row">
+									<span class="data-nota-jogo" th:text="'Nota ' + ${jogo.nota}"></span>
+								</div>
+		    				</div>
+						</div>	    			
+		    		</div>
+	    		</div>
+	    		<div class="col-1">
+					<span>10</span>
+	    		</div>
+	    		<div class="col-1">
+					<span th:text="${jogo.horasZeramento}"></span>
+	    		</div>
+	    		<div sec:authorize="isAuthenticated()" class="col-1">
+					<a href="#" th:id="${jogo.nome}" class="btn btn-success btn-sm active adicionar-jogo" role="button" aria-pressed="true" data-toggle="modal" id="botao-modal-adicionar-jogo" data-target="#modalAdicionarJogo">Adicionar</a>
+	    		</div>
+	    		<div sec:authorize="!isAuthenticated()" class="col-1">
+					<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Usuário precisa estar logado.">
+	 						<button class="btn btn-sm btn-secondary" style="pointer-events: none;" type="button" disabled>Adicionar</button>
+					</span>
+	    		</div>
+			</div>
+		</div>
+
+		<div th:if="${!jogos.empty}">
+			<span class="anterior-proximo" id="carregarPaginaAnterior"> 
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+				</svg>
+			</span>
+			<span class="anterior-proximo" id="carregarPaginaProxima">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+				</svg>
+			 </span>
+			
+			<div id="valorPaginaAtual" style="display: none;" th:text=${paginaAtual}></div>
+			<div id="ehUltimaPagina" style="display: none;" th:text="${ehUltimaPagina}"></div>
+		</div>
+
+		<script type="text/javascript" th:src="@{/js/jogos/paginacao.js}"></script>
+	</div>	
+</div>
+
+
+<div th:fragment="ranking">
+	<div id="rankingSelectorPai">
+		<div id="rankingSelector" class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+			<label id="lbAlfabeticaSelector" class="btn btn-success active">
+				<input type="radio" class="painelSelector" name="selector" id="alfabeticaSelector" autocomplete="off" > Alfabética
+			</label>
+			<label id="lbMelhoresSelector" class="btn btn-success">
+				<input type="radio" class="painelSelector" name="selector" id="melhoresSelector" autocomplete="off" > Melhores jogos
+			</label>
+			<label id="lbLancamentosSelector" class="btn btn-success">
+				<input type="radio" class="painelSelector" name="selector" id="lancamentosSelector" autocomplete="off" > Lançamento
+			</label>
+			<label id="lbPopularesSelector" class="btn btn-success">
+				<input type="radio" class="painelSelector" name="selector" id="popularesSelector" autocomplete="off" > Mais populares
+			</label>
+			
+			<label id="sortUpSelector" class="btn btn-outline-success">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
+					<path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+				</svg>
+			</label>
+			<label id="sortDownSelector" class="btn btn-outline-success">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+					<path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+				</svg>
+			</label>
+			<label id="lbAtualizarSelector" class="btn btn-outline-success">
+				<input type="radio" class="painelSelector" name="selector" id="atualizarSelector" autocomplete="off" > Atualizar
+			</label>
+		</div>
+	</div>
+</div>
+
+
+<div th:fragment="plataformas">
+	<div id="plataformasSelectorPai">
+		<div id="plataformasSelector" class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+			<label id="lbTudoSelector" class="btn btn-success active">
+				<input type="radio" class="painelSelector" name="selector" id="tudoSelector" autocomplete="off" > Tudo
+			</label>
+			<label id="lbPcSelector" class="btn btn-success">
+				<input type="radio" class="painelSelector" name="selector" id="pcSelector" autocomplete="off" > PC
+			</label>
+			<label id="lbXboxSelector" class="btn btn-success">
+				<input type="radio" class="painelSelector" name="selector" id="xboxSelector" autocomplete="off" > Xbox
+			</label>
+			<label id="lbPsSelector" class="btn btn-success">
+				<input type="radio" class="painelSelector" name="selector" id="psSelector" autocomplete="off" > Playstation
+			</label>
+			<label id="lbNintendoSelector" class="btn btn-success">
+				<input type="radio" class="painelSelector" name="selector" id="nintendoSelector" autocomplete="off" > Nintendo
+			</label>
+			<label id="lbMobileSelector" class="btn btn-success">
+				<input type="radio" class="painelSelector" name="selector" id="mobileSelector" autocomplete="off" > Mobile
+			</label>
+		</div>
+	</div>
+</div>

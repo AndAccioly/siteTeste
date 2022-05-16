@@ -1,0 +1,88 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+
+<div th:fragment="adicionarJogo(jogo)">
+
+	<script th:inline="javascript">
+		function adicionarCategoria(){
+			var input = document.getElementById('selecionar-categoria');
+			var novaCategoria = input.options[input.selectedIndex].text;
+			
+			var antigos = document.getElementById('adicionar-categoria').innerHTML;
+			document.getElementById('adicionar-categoria').innerHTML = antigos + '<span th:utext="\'&nbsp;\'"> </span>' + '<span class="adicionar-categoria" >' + novaCategoria + '</span>';
+			
+			var tds= document.getElementById('tabelaSelecionadas').getElementsByTagName('td');
+			var index = tds.length;
+			
+			var novoInput = '<input type="hidden" id="categorias' + index + '.nome" name="categorias[' + index + '].nome" value="' + novaCategoria + '">';
+			
+			var row = document.getElementById("listaInputs");
+			var cell = row.insertCell(index);
+			cell.innerHTML = novoInput; 
+			
+		}
+		
+	</script>
+
+	<div class="card mx-auto w-50">
+	   	<h5 class="ml-3">Adicionar jogo</h5>
+	   	
+	   	<form class="p-3" th:action="@{/adicionarJogoBD}" th:object="${jogo}" method="post" autocomplete="off">
+	   		<div class="row mt-2">    	
+	   			<div class="col-auto">
+			    	<input name = "jogoNome" id="jogoNome" type="text" placeholder="Título" th:field="*{nome}"/>
+			    </div>
+			    <div class="col-auto">
+		        	<input type="text" th:field="*{nota}" placeholder="Nota" />
+		        </div>
+		        <div class="col-auto">
+					<input type="text" th:field="*{horasZeramento}" placeholder="Tempo jogado" />
+		        </div>
+		    </div>
+		    <div class="row mt-2">
+		    	<div class="col-auto">
+		    		<input type="text" th:field="*{publisher}" placeholder="Publisher"/>
+		    	</div>
+		    	<div class="col-auto">
+		    		<input type="date" th:field="*{dtLancamento}" />
+		    	</div>
+		    </div>
+		    <div class="row mt-2">
+		    	<div class="col-auto">
+			    	<select id="selecionar-categoria" class="custom-select">
+			    		<option id="selecionada" selected="selected">Selecione a categoria</option>
+			    		<option th:each="categoria : ${listaCategorias}" th:value="${categoria.nome}" th:text="${categoria.nome}"></option>
+			    	</select>
+			    </div>
+			    <div class="col-auto">
+			    	<button type="button" id="botao-adicionar-categoria" class="btn btn-success" onclick="adicionarCategoria()" value="Adicionar">Adicionar</button>
+			    </div>
+			    <div class="col-auto">
+				    <div class="d-flex flex-row">
+				    	<div id="adicionar-categoria"></div>
+				    </div> 
+				</div>
+		    </div>
+		    
+		    <div class="row mt-2">
+				<table id="tabelaSelecionadas">
+					<tr id="listaInputs">
+						
+					</tr>
+				</table>
+			</div>
+		    
+	        <div class="row mt-2">
+	        	<textarea class="form-control mt-2" rows="3" name="descricaoJogo" placeholder="Descrição" th:field="*{descricao}" ></textarea>
+	        </div>
+			<div class="form-row mt-2">
+				<div class="d-flex justify-content-between">
+		        	<input type="submit" class="btn-success mb-2" value="Adicionar Jogo" /> 
+	        		<input type="reset" class="btn-success mb-2" value="Limpar" />
+	        	</div>
+	        </div>
+	  	</form>
+	</div>
+</div>

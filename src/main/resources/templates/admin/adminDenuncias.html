@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header('admin')}"></div>	
+	
+	<div class="corpo p-2 bg-light">
+	
+		<div th:replace="~{admin/denunciaFragments :: verTopicosDenunciados(${denunciasTopicos})}"></div>
+		<div th:replace="~{admin/denunciaFragments :: verRespostasDenunciadas(${denunciasRespostas})}"></div>
+	
+	</div>
+	
+    <div th:replace="~{fragments :: footer}"></div>
+    
+    
+</body>
+</html>

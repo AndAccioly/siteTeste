@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css" href="css/autocomplete.css">
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header( 'forum')}"></div>
+	
+	<div class="corpo p-2 bg-light">
+		
+		<div class="topicosRecentes">
+			<div class="card mt-2">
+				<h5 class="card-title">Tópicos recentes</h5>
+				<div th:replace="~{forum/forumFragments :: topicos(${topicosRecentes})}"></div>
+			</div>
+		</div>
+		
+		<div class="card mt-2">
+			<div class="meusTopicos">
+				<h5 class="card-title m-2" >Meus tópicos</h5>
+				<div th:replace="~{forum/forumFragments :: topicos(${meusTopicos})}"></div>
+			</div>
+		</div>
+		
+		<div class="adicionaTopico mx-auto w-50">
+			<div class="card mt-4">
+				<span>Novo tópico</span>
+				<form th:action="@{/adicionarTopico}" th:object="${topico}" method="post" autocomplete="off">
+				
+					<div class="autocomplete" style="width:300px;">
+						<input class="mt-2" id="jogoAutoInput" type="text" name="jogoTopico" placeholder="Jogo" th:field="*{jogo.nome}"/>
+					</div>
+					<input name="titulo" type="text" th:field="*{titulo}" placeholder="Título do tópico" />
+					<textarea class="form-control mt-2" rows="3" name="conteudoTopico" placeholder="Descrição" th:field="*{conteudo}" ></textarea>
+					
+					
+					<div class="d-flex justify-content-between mt-2">
+						<input class="btn-success" type="submit" value="Criar tópico" /> 
+				        <input class="btn-success" type="reset" value="Limpar" />
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	
+		<div th:replace="~{misc/autocomplete :: autoCompleteScript(${jogosNomes})}"></div>
+		
+	</div>
+
+    <div th:replace="~{fragments :: footer}"></div>
+    
+</body>
+</html>

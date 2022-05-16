@@ -1,0 +1,117 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+
+<div th:fragment="verResposta(resposta)">
+		<div class="card mt-2">
+				<div class="container">
+					<div class="row mt-2">
+					
+						<div class="col-1 border-end border-2">
+							<img th:src="@{/imagens/logo.png}" class="img-logo" style="width: 50%" title="logo" alt="logo-link"/>
+						</div>	
+						
+						<div class="col-11">
+							<div class="container">
+								<div class="row">
+									<div class="d-flex justify-content-between">
+										<h6 class="card-title" th:text="${resposta.autor.username}"></h6>
+										<a th:href="@{/denunciar(id=${resposta.id}, entidade='resposta') }" class="denunciar">Denunciar</a>
+									</div>
+								</div>
+								<div class="row">
+									<span class="subtitulo-cartao" th:text="${#calendars.format(resposta.dataPublicacao, 'dd/MM/yy HH:mm')}"></span>
+								</div>
+								<div class="row mt-3">
+									<p class="card-text" th:text="${resposta.conteudo}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+
+
+<div th:fragment="verRespostas(topico)">
+	<div class="container-fluid mt-3">
+		<div th:each="resposta : ${topico.respostas}">
+			<div class="card mt-2">
+				<div class="container">
+					<div class="row mt-2">
+					
+						<div class="col-1 border-end border-2">
+							<img th:src="@{/imagens/logo.png}" class="img-logo" style="width: 50%" title="logo" alt="logo-link"/>
+						</div>	
+						
+						<div class="col-11">
+							<div class="container">
+								<div class="row">
+									<div class="d-flex justify-content-between">
+										<h6 class="card-title" th:text="${resposta.autor.username}"></h6>
+										<a th:href="@{/denunciar(id=${resposta.id}, entidade='resposta') }" class="denunciar">Denunciar</a>
+									</div>
+								</div>
+								<div class="row">
+									<span class="subtitulo-cartao" th:text="${#calendars.format(resposta.dataPublicacao, 'dd/MM/yy HH:mm')}"></span>
+								</div>
+								<div class="row mt-3">
+									<p class="card-text" th:text="${resposta.conteudo}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="topicos(topicos)">
+	<div class="container">
+		<div th:if="${topicos.empty}">
+			<span>Nenhum tópico.</span>			
+		</div>
+	
+		<div class="mt-1" th:each="topico : ${topicos}">
+			<div class="card">
+			
+				<div class="container">
+					<div class="row mt-2">
+						<div class="col-1 border-end border-2">
+							<div class="row">
+								<img th:src="@{/imagens/logo.png}" class="img-logo" style="width: 50%" title="logo" alt="logo-link"/>
+							</div>
+							<div class="row">
+								<span><a th:href="@{/verPerfil(id=${topico.autor.id})}" class="referencia" th:text="${topico.autor.username}"></a></span>
+							</div>
+							<div class="row">
+								<span class="subtitulo-cartao" th:text="${#calendars.format(topico.dataPublicacao, 'dd/MM/yy HH:mm')}"></span>
+							</div>
+						</div>
+						<div class="col-11">
+							<div class="container p-1">
+								<div class="row mt-2">
+									<div class="d-flex justify-content-between">
+										<h5 class="card-title"><a th:href="@{/topico(id=${topico.id})}" class="referencia-titulo-topico" th:text="${topico.titulo}" style="text-decoration: none;"></a></h5>
+										<a th:href="@{/denunciar(id=${topico.id}, entidade='topico') }" class="denunciar">Denunciar</a>
+									</div>
+								</div>
+								<div class="row">
+									<span><a class="referencia" th:href="@{/verJogo(id=${topico.jogo.id})}" th:text="${topico.jogo.nome}"></a></span>
+								</div>								
+								<div class="row mt-3">
+									<p class="card-text" th:text="${topico.conteudo}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+

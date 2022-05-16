@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="css/autocomplete.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:replace="~{fragments :: head}"></div>
+
+<body>
+
+	<div th:replace="~{fragments :: header( 'meusJogos' )}"></div>
+	
+	<div class="corpo p-2 bg-light">
+	
+		<div class="card mx-auto w-50">
+	    	<h5 class="ml-3">Adicionar jogo</h5>
+	    	<form class="p-3" th:action="@{/adicionarJogo}" th:object="${avJogo}" method="post" autocomplete="off">
+	    		<div class="row mt-2">    	
+	    			<div class="col-auto">
+				    	<div class="autocomplete">
+				    		<input id="jogoAutoInput" type="text" name="jogoNome" placeholder="Jogo" th:field="*{jogo.nome}"/>
+				    	</div>
+				    </div>
+				    <div class="col-auto">
+			        	<input name="nota" type="text" th:field="*{nota}" placeholder="Nota" />
+			        </div>
+			        <div class="col-auto">
+						<input name="horasJogadas" type="text" th:field="*{horasJogadas}" placeholder="Tempo jogado" />
+			        </div>
+			    </div>
+		        
+		        <textarea class="form-control mt-2" rows="3" name="reviewJogo" placeholder="Review" th:field="*{review}" ></textarea>
+				<div class="row mt-2">
+					<div class="d-flex justify-content-between">
+			        	<input type="submit" class="btn-success mb-2" value="Adicionar Jogo" /> 
+		        		<input type="reset" class="btn-success mb-2" value="Limpar" />
+		        	</div>
+		        </div>
+	   		</form>
+	   		<div th:replace="~{misc/autocomplete :: autoCompleteScript(${jogosNomes})}"></div>
+	    </div>
+	    
+		<div class="listaJogos p-4">
+			<div id="replace_div">
+				<div th:replace="~{jogos/jogosFragments :: meusJogos}"></div>
+			</div>
+		</div>  
+		
+		<div th:replace="~{misc/modal :: modalAlterarJogo}"></div>
+		<script type="text/javascript" th:src="@{/js/jogos/modalMeusJogos.js}"></script>
+	</div>
+	
+	
+	
+	<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jogos/meusJogos.js}"></script>
+	
+	<div th:replace="~{fragments :: footer}"></div>
+	
+</body>
+</html>

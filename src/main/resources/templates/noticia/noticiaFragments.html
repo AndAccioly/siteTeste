@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:fragment="verNoticia(noticia)">
+	<div class="container">
+		<div class="row">
+			<span class="noticia-titulo" th:text="${noticia.titulo}"></span>
+		</div>
+		<div class="row">
+			<span><a class="referencia" th:href="@{/verJogo(id=${noticia.jogo.id})}" th:text="${noticia.jogo.nome}"></a></span>
+		</div>
+		<div class="row border-top mt-3">
+			<p th:text="${noticia.conteudo}"></p>
+		</div>
+		<div class="row mt-2">
+			<div class="d-flex flex-row">
+				<p class="subtitulo-cartao" th:text="${noticia.autor.username}"></p>
+				<span class="subtitulo-cartao" th:text="${#calendars.format(noticia.dataPublicacao, 'dd/MM/yy HH:mm')}"></span>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<div th:fragment="escreverNoticia(noticia)">
+
+</div>
