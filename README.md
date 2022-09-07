@@ -1,3 +1,3 @@
 # Site test
 
-Just a javascript website made to study.
+Just a javascript website made during my study.
